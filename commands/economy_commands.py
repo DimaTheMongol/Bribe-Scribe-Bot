@@ -10,8 +10,8 @@ from discord.ext import commands
 # ==============================
 
 from economy import get_balance, get_recent_transactions, claim_daily, transfer, top_balances, grant, DAILY_AMOUNT, set_balance
-from warpstone import ws
-from utils_permissions import is_admin
+from utility.warpstone import ws
+from utility.utils_permissions import is_admin
 
 # ==============================
 # Commands – Economy

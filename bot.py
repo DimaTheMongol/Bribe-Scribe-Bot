@@ -23,8 +23,11 @@ from openai import OpenAI
 # ==============================
 
 from economy import init_db
+from betting import init_betting_db
 from commands.economy_commands import setup_economy_commands
 from commands.llm_commands import setup_llm_commands
+from commands.betting_commands import setup_betting_commands
+
 
 # ==============================
 # Configuration & Constants
@@ -45,6 +48,7 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 async def on_ready():
     print("on_ready fired, initialising DB...")
     init_db()
+    init_betting_db()
     print("DB init complete")
     print("Commands loaded:", [c.name for c in bot.commands])
     print(f"Logged in as {bot.user}")
@@ -59,6 +63,7 @@ async def ping(ctx):
 
 setup_llm_commands(bot, client)
 setup_economy_commands(bot)
+setup_betting_commands(bot)
 
 # ==============================
 # Finisher
