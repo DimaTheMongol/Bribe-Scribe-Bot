@@ -1,7 +1,5 @@
 import sqlite3
 from datetime import datetime, timezone, timedelta
-from typing import List, Dict, Any
-
 
 DB_PATH = "bribe_scribe.db"
 STARTING_BALANCE = 1000
@@ -109,7 +107,7 @@ def get_recent_transactions(user_id: int, limit: int = 10):
         ).fetchall()
         return rows
 
-def claim_daily(user_id: int):
+def claim_daily(user_id: int) -> tuple[bool, str, int, int]:
     """
     Grants a daily dividend if the user has not claimed within the cooldown window.
     Returns a tuple:
@@ -154,11 +152,10 @@ def claim_daily(user_id: int):
         return True, "Dividends paid.", new_balance, 0
 
 def transfer(from_user_id: int, to_user_id: int, amount: int):
-    """
-    Move Warp Stones from one user to another.
+    """Atomically moves Warp Stones between two users and logs both sides to the ledger.
 
-    Returns: (ok: bool, message: str)
-    """
+    Returns: (ok: bool, message: str)"""
+    
     init_db()
     ensure_user(from_user_id)
     ensure_user(to_user_id)

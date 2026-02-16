@@ -10,3 +10,8 @@ bribe_scribe.db
 # IDE/editor noise
 .vs/
 .vscode/
+
+# DBs
+*.db
+*.sqlite
+*.sqlite3
